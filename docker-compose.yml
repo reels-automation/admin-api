@@ -9,7 +9,7 @@ services:
       - MINIO_ROOT_USER=${MINIO_ROOT_USER}
       - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
     volumes:
-      - /media/porky/2TB/docker_data/minio_admin_files:/data
+      - ${MINIO_FOLDER_LOCATION}:/data
     ports:
       - 9002:9000
       - 9003:9001
