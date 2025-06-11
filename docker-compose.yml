@@ -1,0 +1,21 @@
+services:
+
+  minio-admin-files:
+    image: minio/minio:latest
+    container_name: minio-admin-files
+    restart: always
+    command: server --console-address :9001 /data
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+    volumes:
+      - /media/porky/2TB/docker_data/minio_admin_files:/data
+    ports:
+      - 9002:9000
+      - 9003:9001
+    networks:
+      - minio-admin-files-network
+
+networks:
+  minio-admin-files-network:
+    driver: bridge
