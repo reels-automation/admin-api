@@ -81,7 +81,8 @@ async def get_voice_model_pth_from_name(personaje:str, idioma:str):
             if object['object_name'] != search_name_voice_model:
                 continue
             else:
-                return object['object_url']
+                response = {"name": object["object_name"], "url": object["object_url"]}
+                return response
     except S3Error as error:
         print("ERROR: ", error)
         raise ApiError(message="Error inesperado en el bucket de Minio", status_code=500, description="Ocurrio un error interno en el bucket de minio") from error
@@ -98,7 +99,8 @@ async def get_voice_model_index_from_name(personaje:str, idioma:str):
             if object['object_name'] != search_name_voice_model:
                 continue
             else:
-                return object['object_url']
+                response = {"name": object["object_name"], "url": object["object_url"]}
+                return response
     except S3Error as error:
         raise ApiError(message="Error inesperado en el bucket de Minio", status_code=500, description="Ocurrio un error interno en el bucket de minio") from error
     except Exception as error:

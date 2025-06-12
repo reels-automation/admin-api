@@ -7,3 +7,4 @@ BUCKETS_DATA={
     "voice-model":"voice-model"
 }
 VOICE_MODEL_BUCKET='voice-models'
+MODELOS_VOCES = [{"personaje": "homero", "idioma": "es"},{"personaje": "peter_griffin", "idioma": "es"}]
