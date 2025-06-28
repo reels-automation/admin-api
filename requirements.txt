@@ -1,3 +1,5 @@
 fastapi
 minio
 python-dotenv
+uvicorn
+gunicorn

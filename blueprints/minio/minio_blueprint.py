@@ -107,7 +107,6 @@ async def get_voice_model_index_from_name(personaje:str, idioma:str):
         raise ApiError(message="Error Interno", status_code=500, description="Ocurrio un error interno en el servidor") from error
     raise ApiError(message="Archivo no encontrado", status_code=404, description=f"El archivo: {search_name_voice_model} no existe en el bucket: {VOICE_MODEL_BUCKET}")
 
-
 @minio_router.get("/get-files/{bucket}")
 async def get_all_file_from_bucket(bucket:str):    
     try:
