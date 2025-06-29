@@ -15,7 +15,7 @@ services:
       - 9002:9000
       - 9003:9001
     networks:
-      - minio-admin-files-network
+      - minio-admin-files
   
   api-minio-admin:
     build: .
@@ -24,6 +24,8 @@ services:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
       MINIO_FOLDER_LOCATION: ${MINIO_FOLDER_LOCATION}
+      MINIO_URL: ${MINIO_URL}
+      MINIO_PORT: ${MINIO_PORT}
     ports:
         - "9999:9999"
     networks:

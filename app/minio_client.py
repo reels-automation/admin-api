@@ -5,8 +5,10 @@ load_dotenv()
 
 MINIO_ROOT_USER = os.getenv("MINIO_ROOT_USER")
 MINIO_ROOT_PASSWORD =os.getenv("MINIO_ROOT_PASSWORD")
-URL="localhost"
-PORT=9002
+
+URL=os.getenv("MINIO_URL")
+PORT=os.getenv("MINIO_PORT")
+
 class MinioClientSingleton:
     _instance = None
 
