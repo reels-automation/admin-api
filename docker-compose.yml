@@ -2,7 +2,7 @@ services:
 
   minio-admin-files:
     image: minio/minio:latest
-    container_name: minio-admin-files
+    container_name: minio-admin-files-dev
     restart: always
     command: server --console-address :9001 /data
     environment:
@@ -19,13 +19,16 @@ services:
   
   api-minio-admin:
     build: .
-    container_name: api-minio-admin
+    
+    container_name: api-minio-admin-dev
     environment:
+      PYTHONUNBUFFERED: 1
       MINIO_ROOT_USER: ${MINIO_ROOT_USER}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
       MINIO_FOLDER_LOCATION: ${MINIO_FOLDER_LOCATION}
       MINIO_URL: ${MINIO_URL}
       MINIO_PORT: ${MINIO_PORT}
+      BUCKETS: ${BUCKETS}
     ports:
         - "9999:9999"
     networks:

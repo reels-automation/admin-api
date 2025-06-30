@@ -9,7 +9,10 @@ from blueprints.index.index import index_router
 from blueprints.minio.minio_blueprint import minio_router
 from services.minio_service import MinioService
 from errors.api_error import ApiError
+from utils.utils import create_buckets_from_config
+
 minio_service = MinioService()
+create_buckets_from_config()
 
 app = FastAPI()
 app.add_middleware(
