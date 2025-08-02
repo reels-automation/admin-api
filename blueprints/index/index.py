@@ -44,7 +44,8 @@ async def personajes():
         for personaje_image in personajes_images:
             image_name , number = personaje_image.rsplit("_",1)
             if image_name == personaje:
-                personajes_disponibles.append(personaje_pth)
+                data = {"personaje":personaje, "idioma": lang}
+                personajes_disponibles.append(data)
                 break
 
     return personajes_disponibles
