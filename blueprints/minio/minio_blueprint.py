@@ -35,9 +35,9 @@ async def get_images_from_personaje_name(personaje:str)-> list[dict[str,str]]:
     return objects
 
 @minio_router.get("/random-image/{personaje}")
-
-async def get_random_image_from_personaje_name(personaje:str):
-    """Gets a random object from a bucket
+async def get_random_image_from_personaje_name(personaje: str):
+    """
+    Gets a random object from a bucket that matches the given character's prefix.
 
     Args:
         personaje (str): The name of the desired character
@@ -46,15 +46,35 @@ async def get_random_image_from_personaje_name(personaje:str):
         ApiError
 
     Returns:
-        str: A random object
+        dict: A random object belonging to that character
     """
     try:
-        bucket = translate_personaje_to_bucket_name(personaje)
+        bucket = "personajes-imagenes"
         objects = minio_service.list_all_object_names(bucket)
-        random_object = random.choice(objects)
+
+        # Filtrar imágenes cuyo nombre comience con el nombre del personaje seguido de "_"
+        filtered_objects = [
+            obj for obj in objects
+            if obj["object_name"].startswith(f"{personaje}_")
+        ]
+
+        if not filtered_objects:
+            raise ApiError(
+                message="No se encontraron imágenes para el personaje",
+                status_code=404,
+                description=f"No hay imágenes disponibles para el personaje: {personaje}"
+            )
+
+        random_object = random.choice(filtered_objects)
+        return random_object
+
     except S3Error as error:
-        raise ApiError(message="Error inesperado en el bucket de Minio", status_code=500, description="Ocurrio un error interno en el bucket de minio") from error
-    return random_object
+        raise ApiError(
+            message="Error inesperado en el bucket de Minio",
+            status_code=500,
+            description="Ocurrió un error interno en el bucket de Minio"
+        ) from error
+
 
 @minio_router.get("/get-file/{bucket}/{filename}")
 async def get_file_from_bucket(bucket:str, filename:str):    
