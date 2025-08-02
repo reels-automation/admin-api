@@ -3,3 +3,4 @@ minio
 python-dotenv
 uvicorn
 gunicorn
+fastapi[standard]

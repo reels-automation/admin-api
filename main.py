@@ -1,3 +1,4 @@
+import logging
 from fastapi import FastAPI
 from fastapi.requests import Request
 from fastapi.responses import JSONResponse
@@ -11,6 +12,11 @@ from services.minio_service import MinioService
 from errors.api_error import ApiError
 from utils.utils import create_buckets_from_config
 
+logging.basicConfig(
+    level=logging.INFO,  # Use DEBUG for more detailed logs
+    format="%(asctime)s - %(levelname)s - %(name)s - %(message)s"
+)
+logger = logging.getLogger(__name__)
 minio_service = MinioService()
 create_buckets_from_config()
 
@@ -37,6 +43,7 @@ async def api_error_handler(request: Request, exception: ApiError):
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
+    print("Error inesperado: ", exc)
     return JSONResponse(
         status_code=500,
         content={"detail": f"Error inesperado: {str(exc)}"},
